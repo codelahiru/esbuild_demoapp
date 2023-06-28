@@ -1,27 +1,31 @@
+import { AnyCnameRecord } from 'dns';
 import * as esbuild from 'esbuild-wasm';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react'; // Hooks
 import ReactDOM from 'react-dom';
 
 const App = () => {
   // States
+  const ref = useRef<any>();
   const [input, setInput] = useState('');
   const [code, setCode] = useState('');
 
   const startService = async () => {
 
-    const service =  await esbuild.startService({
+    ref.current = await esbuild.startService({
       worker: true,
       wasmURL: '/esbuild.wasm'
     });
-    console.log(service);
   };
 
   useEffect(() => {
       startService();
-  }, []);
+  }, []);             // call startService only one single tile & use of second argument of an empty array
 
   const onClick = () => {
-    console.log(input);
+    if(!ref.current){
+      return;
+    }
+    console.log(ref.current);
   };
 
   return <div>
