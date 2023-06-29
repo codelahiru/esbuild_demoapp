@@ -2,6 +2,7 @@ import { AnyCnameRecord } from 'dns';
 import * as esbuild from 'esbuild-wasm';
 import { useState, useEffect, useRef } from 'react'; // Hooks
 import ReactDOM from 'react-dom';
+import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 
 // this is the 'App' COMPONENT! -----------------------------------------------------------------------------
 const App = () => {                          
@@ -31,11 +32,22 @@ const App = () => {
       startService();
   }, []);                                 // call startService only one single time & use of second argument of an empty array
 
-  const onClick = () => {
+  const onClick = async () => {
     if(!ref.current){
       return;
     }
-    console.log(ref.current);
+    
+    const result = await ref.current.build({
+        entryPoints: ['index.js'],
+        bundle: true,
+        write: false,
+        plugins: [unpkgPathPlugin()]
+    });
+
+    //console.log(result);
+
+    setCode(result.outputFiles[0].text)
+
   };
 
   return <div>
