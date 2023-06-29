@@ -3,7 +3,7 @@ import * as esbuild from 'esbuild-wasm';
 import { useState, useEffect, useRef } from 'react'; // Hooks
 import ReactDOM from 'react-dom';
 
-// this is the 'App' COMPONENT!
+// this is the 'App' COMPONENT! -----------------------------------------------------------------------------
 const App = () => {                          
   // States
   const ref = useRef<any>();
@@ -46,7 +46,7 @@ const App = () => {
     <pre>{code}</pre>
   </div>
 
-};
+}; // App Component End ------------------------------------------------------------------------------------
 
 ReactDOM.render(
     <App />,
