@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from 'react'; // Hooks
 import ReactDOM from 'react-dom';
 import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 
+
+
 // this is the 'App' COMPONENT! -----------------------------------------------------------------------------
 const App = () => {                          
   // States
@@ -41,7 +43,11 @@ const App = () => {
         entryPoints: ['index.js'],
         bundle: true,
         write: false,
-        plugins: [unpkgPathPlugin()]
+        plugins: [unpkgPathPlugin()],
+        define: {
+          'process.env.NODE_ENV': '"production"',
+          global: 'window',
+        },
     });
 
     //console.log(result);
